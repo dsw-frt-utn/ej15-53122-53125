@@ -1,4 +1,6 @@
 
+using Dsw2026Ej15.Data;
+
 namespace Dsw2026Ej15.Api
 {
     public class Program
@@ -7,30 +9,30 @@ namespace Dsw2026Ej15.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+    
 
             builder.Services.AddControllers();
-            //Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
             builder.Services.AddEndpointsApiExplorer();
-        
+
+         
+            builder.Services.AddSwaggerGen();
+
+     
+            builder.Services.AddSingleton<IPersistence, PersistenceInMemory>();
 
             var app = builder.Build();
-            // Activamos nuestro Middleware global de excepciones
+
             app.UseMiddleware<Dsw2026Ej15.Api.Middlewares.ExceptionMiddleware>();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
             {
-                app.MapOpenApi();
-              
-            }
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Clinica API v1");
+                options.RoutePrefix = "swagger"; 
+            });
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
 
             app.Run();
