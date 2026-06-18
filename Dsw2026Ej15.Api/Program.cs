@@ -16,6 +16,8 @@ namespace Dsw2026Ej15.Api
         
 
             var app = builder.Build();
+            // Activamos nuestro Middleware global de excepciones
+            app.UseMiddleware<Dsw2026Ej15.Api.Middlewares.ExceptionMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

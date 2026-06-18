@@ -20,6 +20,13 @@ namespace Dsw2026Ej15.Data
         }
         public Doctor? GetDoctor(Guid id) => _doctors.FirstOrDefault(d => d.Id == id);
 
-   
-}
+        public bool DeactivateDoctor(Guid id)
+        {
+            var doctor = GetDoctor(id);
+            if (doctor == null) return false;
+            doctor.IsActive = false;
+            return true;
+        }
+
+    }
 }

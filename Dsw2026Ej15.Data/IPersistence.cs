@@ -12,5 +12,7 @@ namespace Dsw2026Ej15.Data
 
         void AddDoctor(Doctor doctor);
         Doctor ? GetDoctor(Guid id);
+
+        bool DeactivateDoctor(Guid id);
     }
 }
